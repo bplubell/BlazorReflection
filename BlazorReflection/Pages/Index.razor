@@ -1,0 +1,75 @@
+﻿@page "/"
+
+<h1>Problems with reflection</h1>
+
+<p>Either System.Math is not emitting its public members or, more likely, Type.GetMembers() is not returning all the members of the type (and I have only found a problem with System.Math).</p>
+
+<div class="row">
+    <div class="col">
+        <h2>Expected</h2>
+
+        <p>Output of <code>typeof(System.Math).GetMembers()</code>, pre-computed in a class library targeting netstandard2.0 (duplicates removed).</p>
+
+        <ul style="list-style: none;">
+            <li>Abs</li>
+            <li>Acos</li>
+            <li>Acosh</li>
+            <li>Asin</li>
+            <li>Asinh</li>
+            <li>Atan</li>
+            <li>Atan2</li>
+            <li>Atanh</li>
+            <li>BigMul</li>
+            <li>BitDecrement</li>
+            <li>BitIncrement</li>
+            <li>Cbrt</li>
+            <li>Ceiling</li>
+            <li>Clamp</li>
+            <li>CopySign</li>
+            <li>Cos</li>
+            <li>Cosh</li>
+            <li>DivRem</li>
+            <li>E</li>
+            <li>Equals</li>
+            <li>Exp</li>
+            <li>Floor</li>
+            <li>FusedMultiplyAdd</li>
+            <li>GetHashCode</li>
+            <li>GetType</li>
+            <li>IEEERemainder</li>
+            <li>ILogB</li>
+            <li>Log</li>
+            <li>Log10</li>
+            <li>Log2</li>
+            <li>Max</li>
+            <li>MaxMagnitude</li>
+            <li>Min</li>
+            <li>MinMagnitude</li>
+            <li>PI</li>
+            <li>Pow</li>
+            <li>Round</li>
+            <li>ScaleB</li>
+            <li>Sign</li>
+            <li>Sin</li>
+            <li>Sinh</li>
+            <li>Sqrt</li>
+            <li>Tan</li>
+            <li>Tanh</li>
+            <li>ToString</li>
+            <li>Truncate</li>
+        </ul>
+    </div>
+
+    <div class="col">
+        <h2>Actual</h2>
+        
+        <p>Output of <code>typeof(System.Math).GetMembers()</code>, computed live on the client.</p>
+
+        <ul style="list-style: none;">
+            @foreach (string member in typeof(System.Math).GetMembers().Select(s => s.Name).OrderBy(s => s))
+            {
+                <li>@member</li>
+            }
+        </ul>
+    </div>
+</div>
